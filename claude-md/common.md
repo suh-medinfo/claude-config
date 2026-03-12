@@ -26,5 +26,13 @@
 - Ask「実行してよいですか？」before proceeding
 - When in doubt, ask before executing
 
+### Session Handover
+- 一連の作業が完了したと判断したら、ユーザーに `/handover` の実行を提案すること
+- 提案タイミングの目安：
+  - ユーザーが依頼した作業がすべて完了したとき
+  - コミット＆プッシュまで終わり、次の指示がないとき
+  - 「ありがとう」「OK」など作業終了を示す発言があったとき
+- 提案例：「作業が一区切りついたので、`/handover` で引き継ぎ書を作成しておきますか？」
+
 ### Project Management
 - C:\ClaudeWork\ 以下に新しいプロジェクトフォルダを作成した場合、C:\ClaudeWork\README.md の「現在のプロジェクト一覧」テーブルに追記すること
