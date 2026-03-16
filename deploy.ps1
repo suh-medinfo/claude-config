@@ -27,6 +27,8 @@ $TargetMd = Join-Path $ClaudeDir "CLAUDE.md"
 $CommonMd = Join-Path $ScriptDir "claude-md\common.md"
 $MachineMd = Join-Path $ScriptDir "claude-md\$Machine.md"
 $CommandsSource = Join-Path $ScriptDir "commands"
+$SkillsSource = Join-Path $ScriptDir "skills"
+$SkillsDir = Join-Path $ClaudeDir "skills"
 
 # -------------------------------------------------------
 # 1. ~/.claude ディレクトリ作成
@@ -76,13 +78,33 @@ if (Test-Path $CommandsSource) {
 }
 
 # -------------------------------------------------------
-# 5. 結果表示
+# 5. skills/ をコピー
+# -------------------------------------------------------
+if (Test-Path $SkillsSource) {
+    if (-not (Test-Path $SkillsDir)) {
+        New-Item -ItemType Directory -Path $SkillsDir -Force | Out-Null
+    }
+
+    $SkillDirs = Get-ChildItem $SkillsSource -Directory
+    foreach ($Skill in $SkillDirs) {
+        $DestSkill = Join-Path $SkillsDir $Skill.Name
+        if (Test-Path $DestSkill) {
+            Remove-Item $DestSkill -Recurse -Force
+        }
+        Copy-Item $Skill.FullName $DestSkill -Recurse -Force
+        Write-Host "[OK] Skill: $($Skill.Name)" -ForegroundColor Cyan
+    }
+}
+
+# -------------------------------------------------------
+# 6. 結果表示
 # -------------------------------------------------------
 Write-Host ""
 Write-Host "=== Deploy complete ===" -ForegroundColor Green
 Write-Host "  Target:  $TargetMd"
 Write-Host "  Machine: $Machine"
 Write-Host "  Commands: $(if (Test-Path $CommandsDir) { (Get-ChildItem $CommandsDir -Filter '*.md').Count } else { 0 }) files"
+Write-Host "  Skills:   $(if (Test-Path $SkillsDir) { (Get-ChildItem $SkillsDir -Directory).Count } else { 0 }) skills"
 Write-Host ""
 Write-Host "Contents:" -ForegroundColor Gray
 Get-Content $TargetMd | Select-Object -First 5
