@@ -35,5 +35,12 @@
   - 「ありがとう」「OK」など作業終了を示す発言があったとき
 - 提案例：「作業が一区切りついたので、`/handover` で引き継ぎ書を作成しておきますか？」
 
+### Self-Improvement Loop
+- エージェント（architect, implementer, tester 等）やスキル（team-dev, team-investigation 等）を使用したセッションの終了時、`/log` コマンドの実行を提案すること
+- 提案タイミングの目安:
+  - `/handover` を実行した直後（「ログも記録しておきますか？」）
+  - エージェント/スキルの実行が失敗した直後（失敗記録は特に重要）
+- ログの記録は任意。ユーザーが不要と言えば記録しない
+
 ### Project Management
 - C:\ClaudeWork\ 以下に新しいプロジェクトフォルダを作成した場合、C:\ClaudeWork\README.md の「現在のプロジェクト一覧」テーブルに追記すること
